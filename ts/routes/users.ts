@@ -45,7 +45,7 @@ const getUserListings = async (req: Express.Request, res: Express.Response) => {
 };
 
 router.get('/:id', getUser);
+// router.put('/:id/', updateUser); // ask how this is supposed to behave 
 router.get('/:id/listings', getUserListings);
-// router.put('/:id/listings', updateUserListings);
 
 export default {};
