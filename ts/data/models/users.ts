@@ -1,10 +1,12 @@
-import { User } from '../../types';
 import db from '../dbConfig';
+import { User } from '../../types';
 import { basicModelTemplate } from './basicModelTemplate';
 import { convertObjectCamelToSnake, convertObjectSnakeToCamel } from '../../utils';
 
+const tableName = 'users';
+
 const model = basicModelTemplate<User>({
-  tableName: 'users',
+  tableName,
   preprocessData: ((data) => convertObjectCamelToSnake({ obj: data })),
   processResult: ((result) => convertObjectSnakeToCamel({ obj: result })),
 });
@@ -13,7 +15,7 @@ interface GetByEmailArg {
   email: string,
 }
 
-const getByEmail = ({ email }: GetByEmailArg) => (db('users')
+const getByEmail = ({ email }: GetByEmailArg) => (db(tableName)
   .where({ email })
   .first()
   .then((result) => (
