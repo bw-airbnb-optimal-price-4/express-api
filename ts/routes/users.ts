@@ -1,6 +1,5 @@
 import * as Express from 'express';
 
-// import { UserCredentials as UserCredentialsType } from '../types';
 import { Listing } from '../types';
 import {
   Listings,
