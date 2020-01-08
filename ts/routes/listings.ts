@@ -11,10 +11,10 @@ const getListing = async (req: Express.Request, res: Express.Response) => {
 
   try {
     const [result] = await Listings.get({ id: parseInt(id, 10) } as Listing);
-    if (result) {
-      return res.status(200).json(result);
-    }
-    return res.status(500).json({ message: `error getting listing by id ${id}` });
+    return ((result)
+      ? res.status(200).json(result)
+      : res.status(500).json({ message: `error getting listing by id ${id}` })
+    );
   } catch (err) {
     return res.status(500).json({
       error: err.message,
@@ -38,8 +38,26 @@ const insertListing = async (req: Express.Request, res: Express.Response) => {
   }
 };
 
+const removeListing = async (req: Express.Request, res: Express.Response) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Listings.remove({ id: parseInt(id, 10) });
+    return ((result)
+      ? res.status(200).send()
+      : res.status(500).json({ message: `error deleting listing by id ${id}` })
+    );
+  } catch (err) {
+    return res.status(500).json({
+      error: err.message,
+      message: `error deleting listing by id ${id}`,
+    });
+  }
+};
+
 router.get('/:id', getListing);
 router.post('/', insertListing);
 // router.put('/:id/', updateListing); // ask how this is supposed to behave 
+router.delete('/:id', removeListing);
 
 export default {};
