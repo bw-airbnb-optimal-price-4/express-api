@@ -15,10 +15,10 @@ const getUser = async (req: Express.Request, res: Express.Response) => {
 
   try {
     const [result] = await Users.get({ id: parseInt(id, 10) });
-    if (result) {
-      return res.status(200).json(result);
-    }
-    return res.status(500).json({ message: `error getting user by id ${id}` });
+    return ((result)
+      ? res.status(200).json(result)
+      : res.status(500).json({ message: `error getting user by id ${id}` })
+    );
   } catch (err) {
     return res.status(500).json({
       error: err.message,
