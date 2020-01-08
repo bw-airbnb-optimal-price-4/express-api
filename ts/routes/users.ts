@@ -1,7 +1,11 @@
 import * as Express from 'express';
 
 // import { UserCredentials as UserCredentialsType } from '../types';
-import { Users } from '../data/models';
+import { Listing } from '../types';
+import {
+  Listings,
+  Users,
+} from '../data/models';
 
 
 export const router = Express.Router();
@@ -27,21 +31,21 @@ const getUserListings = async (req: Express.Request, res: Express.Response) => {
   const { id } = req.params;
 
   try {
-    const [result] = await Users.get({ id: parseInt(id, 10) });
-    if (result) {
-      return res.status(200).json(result);
-    }
-    return res.status(500).json({ message: `error getting user by id ${id}` });
+    const result = await Listings.get({ userId: parseInt(id, 10) } as Listing);
+    return ((result.length === 0) // add the ? befor .length 
+      ? res.status(400).json({ message: `no listings under id ${id}` })
+      : res.status(200).json(result)
+    );
   } catch (err) {
     return res.status(500).json({
       error: err.message,
-      message: `error getting user by id ${id}`,
+      message: `error getting listings for user id ${id}`,
     });
   }
 };
 
 router.get('/:id', getUser);
-// router.get('/:id/listings', getUserListings);
+router.get('/:id/listings', getUserListings);
 // router.put('/:id/listings', updateUserListings);
 
 export default {};
