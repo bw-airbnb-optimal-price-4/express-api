@@ -8,9 +8,27 @@ const model = basicModelTemplate<User>({
   processResult: ((result) => convertObjectSnakeToCamel({ obj: result })),
 });
 
+interface GetByEmailArg {
+  email: string,
+}
+
+const getByEmail = ({ email }: GetByEmailArg) => (db('user_credentials')
+  .where({ email })
+  .first()
+  .then((result) => (
+    (result)
+      ? {
+        id: result.id,
+        email: result.email,
+        hashedPassword: result.password,
+      }
+      : undefined
+  ))
+);
+
 export default {
   get: model.get,
   insert: model.insert,
   update: model.update,
-  remove: model.remove,
+  getByEmail,
 };

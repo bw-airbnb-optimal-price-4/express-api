@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/patrickb42/webauth-iii-challenge.git"
+    "url": "git+https://github.com/bw-airbnb-optimal-price-4/express_api.git"
   },
   "author": "Patrick Baldwin",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/patrickb42/webauth-iii-challenge/issues"
+    "url": "https://github.com/bw-airbnb-optimal-price-4/express_api/issues"
   },
-  "homepage": "https://github.com/patrickb42/webauth-iii-challenge#readme",
+  "homepage": "https://github.com/bw-airbnb-optimal-price-4/express_api#readme",
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.6",

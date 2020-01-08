@@ -1,6 +1,11 @@
+import Listings from './listings';
 import UserCredentials from './userCredentials';
 import Users from './users';
 
-export { UserCredentials, Users };
+export {
+  Listings,
+  UserCredentials,
+  Users,
+};
 
 export default {};
