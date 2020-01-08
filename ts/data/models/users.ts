@@ -12,7 +12,7 @@ interface GetByEmailArg {
   email: string,
 }
 
-const getByEmail = ({ email }: GetByEmailArg) => (db('user_credentials')
+const getByEmail = ({ email }: GetByEmailArg) => (db('users')
   .where({ email })
   .first()
   .then((result) => (
