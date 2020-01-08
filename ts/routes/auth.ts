@@ -1,26 +1,25 @@
 import * as Express from 'express';
 import * as Bcrypt from 'bcryptjs';
 
-import { UserCredentials as UserCredentialsType } from '../types';
+import { User as UserType } from '../types';
 import { SALT_ROUNDS } from '../globalConstants';
 import { generateToken } from '../utils';
-import { UserCredentials } from '../data/models';
 import { Users } from '../data/models';
 
 
 export const router = Express.Router();
 
 const register = async (req: Express.Request, res: Express.Response) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (username === undefined || password === undefined) {
-    return (res.status(400).json({ message: 'must provide username and password' }));
+  if (email === undefined || password === undefined) {
+    return (res.status(400).json({ message: 'must provide email and password' }));
   }
 
   const hashedPassword = Bcrypt.hashSync(password, SALT_ROUNDS);
 
   try {
-    const [result] = await UserCredentials.insert({ item: { username, hashedPassword } });
+    const [result] = await Users.insert({ item: { email, password: hashedPassword } });
     if (result) {
       const token = generateToken(result);
       return res.status(201).json({ token });
@@ -35,15 +34,15 @@ const register = async (req: Express.Request, res: Express.Response) => {
 };
 
 const login = async (req: Express.Request, res: Express.Response) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (username === undefined || password === undefined) {
-    return (res.status(400).json({ message: 'must provide username and password' }));
+  if (email === undefined || password === undefined) {
+    return (res.status(400).json({ message: 'must provide email and password' }));
   }
 
   try {
-    const result = await UserCredentials.getByUsername({ username }) as UserCredentialsType;
-    if (!!result && Bcrypt.compareSync(password, result.hashedPassword)) {
+    const result = await Users.getByEmail({ email }) as UserType;
+    if (!!result && Bcrypt.compareSync(password, result.password)) {
       const token = generateToken(result);
       return res.status(200).json({ token });
     }

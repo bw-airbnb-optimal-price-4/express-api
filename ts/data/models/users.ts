@@ -1,4 +1,5 @@
 import { User } from '../../types';
+import db from '../dbConfig';
 import { basicModelTemplate } from './basicModelTemplate';
 import { convertObjectCamelToSnake, convertObjectSnakeToCamel } from '../../utils';
 
