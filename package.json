@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node js/index.js",
     "server": "nodemon js/index.js",
-    "build": "rm -rf js && tsc",
-    "postinstall": "npm run build"
+    "build": "npm run tsc",
+    "postinstall": "npm run build",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
