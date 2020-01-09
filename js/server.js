@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Express = require("express");
+var Helment = require("helmet");
+var Cors = require("cors");
+var routes_1 = require("./routes");
+var server = Express();
+server.use(Helment());
+server.use(Express.json());
+server.use(Cors());
+server.use('/api/auth', routes_1.authRouter);
+server.use('/api/listings', routes_1.listingsRouter);
+server.use('/api/users', routes_1.usersRouter);
+exports.default = server;
