@@ -76,9 +76,9 @@ var getUserListings = function (req, res) { return __awaiter(void 0, void 0, voi
                 return [4 /*yield*/, models_1.Listings.get({ userId: parseInt(id, 10) })];
             case 2:
                 result = _a.sent();
-                return [2 /*return*/, ((result.length === 0) // add the ? befor .length 
-                        ? res.status(400).json({ message: "no listings under id " + id })
-                        : res.status(200).json(result))];
+                return [2 /*return*/, ((result)
+                        ? res.status(200).json(result)
+                        : res.status(500).json({ message: "error getting listings under id " + id }))];
             case 3:
                 err_2 = _a.sent();
                 return [2 /*return*/, res.status(500).json({
