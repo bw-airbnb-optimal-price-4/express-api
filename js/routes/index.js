@@ -1,8 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var amenities_1 = require("./amenities");
+exports.amenitiesRouter = amenities_1.router;
 var auth_1 = require("./auth");
 exports.authRouter = auth_1.router;
 var listings_1 = require("./listings");
 exports.listingsRouter = listings_1.router;
+var neighborhoods_1 = require("./neighborhoods");
+exports.neighborhoodsRouter = neighborhoods_1.router;
+var propertyTypes_1 = require("./propertyTypes");
+exports.propertyTypesRouter = propertyTypes_1.router;
 var users_1 = require("./users");
 exports.usersRouter = users_1.router;

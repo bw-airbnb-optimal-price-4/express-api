@@ -31,9 +31,9 @@ const getUserListings = async (req: Express.Request, res: Express.Response) => {
 
   try {
     const result = await Listings.get({ userId: parseInt(id, 10) } as Listing);
-    return ((result.length === 0) // add the ? befor .length 
-      ? res.status(400).json({ message: `no listings under id ${id}` })
-      : res.status(200).json(result)
+    return ((result)
+      ? res.status(200).json(result)
+      : res.status(500).json({ message: `error getting listings under id ${id}` })
     );
   } catch (err) {
     return res.status(500).json({

@@ -39,57 +39,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Express = require("express");
 var models_1 = require("../data/models");
 exports.router = Express.Router();
-var getUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, result, err_1;
+var getNeighborhoods = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                id = req.params.id;
-                _a.label = 1;
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, models_1.Neighborhoods.get()];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, models_1.Users.get({ id: parseInt(id, 10) })];
-            case 2:
-                result = (_a.sent())[0];
-                return [2 /*return*/, ((result)
-                        ? res.status(200).json(result)
-                        : res.status(500).json({ message: "error getting user by id " + id }))];
-            case 3:
-                err_1 = _a.sent();
-                return [2 /*return*/, res.status(500).json({
-                        error: err_1.message,
-                        message: "error getting user by id " + id,
-                    })];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); };
-var getUserListings = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, result, err_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = req.params.id;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, models_1.Listings.get({ userId: parseInt(id, 10) })];
-            case 2:
                 result = _a.sent();
                 return [2 /*return*/, ((result)
                         ? res.status(200).json(result)
-                        : res.status(500).json({ message: "error getting listings under id " + id }))];
-            case 3:
-                err_2 = _a.sent();
+                        : res.status(500).json({ message: 'error getting neighborhoods' }))];
+            case 2:
+                err_1 = _a.sent();
                 return [2 /*return*/, res.status(500).json({
-                        error: err_2.message,
-                        message: "error getting listings for user id " + id,
+                        error: err_1.message,
+                        message: 'error getting neighborhoods',
                     })];
-            case 4: return [2 /*return*/];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.router.get('/:id', getUser);
-// router.put('/:id/', updateUser); // ask how this is supposed to behave 
-exports.router.get('/:id/listings', getUserListings);
+exports.router.get('/', getNeighborhoods);
 exports.default = {};

@@ -10,19 +10,45 @@ import { Users } from '../data/models';
 export const router = Express.Router();
 
 const register = async (req: Express.Request, res: Express.Response) => {
-  const { email, password } = req.body;
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    city,
+    state,
+    dateOfBirth,
+    profileImageId,
+  } = req.body;
 
-  if (email === undefined || password === undefined) {
-    return (res.status(400).json({ message: 'must provide email and password' }));
+  if (email === undefined
+    || password === undefined
+    || firstName === undefined
+    || lastName === undefined
+  ) {
+    return (res.status(400).json({
+      message: 'must provide email, password, firstName and lastName',
+    }));
   }
 
   const hashedPassword = Bcrypt.hashSync(password, SALT_ROUNDS);
 
   try {
-    const [result] = await Users.insert({ item: { email, password: hashedPassword } });
+    const [result] = await Users.insert({
+      item: {
+        email,
+        password: hashedPassword,
+        firstName,
+        lastName,
+        city,
+        state,
+        dateOfBirth,
+        profileImageId,
+      },
+    });
     if (result) {
-      const token = generateToken(result);
-      return res.status(201).json({ token });
+      const accessToken = generateToken(result);
+      return res.status(201).json({ accessToken });
     }
     return res.status(500).json({ message: 'error registering user' });
   } catch (err) {
