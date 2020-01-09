@@ -39,27 +39,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Express = require("express");
 var models_1 = require("../data/models");
 exports.router = Express.Router();
-var getPropertyTypes = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var getNeighborhoods = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, models_1.PropertyTypes.get()];
+                return [4 /*yield*/, models_1.Neighborhoods.get()];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, ((result)
                         ? res.status(200).json(result)
-                        : res.status(500).json({ message: 'error getting PropertyTypes' }))];
+                        : res.status(500).json({ message: 'error getting neighborhoods' }))];
             case 2:
                 err_1 = _a.sent();
                 return [2 /*return*/, res.status(500).json({
                         error: err_1.message,
-                        message: 'error getting PropertyTypes',
+                        message: 'error getting neighborhoods',
                     })];
             case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.router.get('/', getPropertyTypes);
+exports.router.get('/', getNeighborhoods);
 exports.default = {};

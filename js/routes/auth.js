@@ -43,24 +43,40 @@ var utils_1 = require("../utils");
 var models_1 = require("../data/models");
 exports.router = Express.Router();
 var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, email, password, hashedPassword, result, token, err_1;
+    var _a, email, password, firstName, lastName, city, state, dateOfBirth, profileImageId, hashedPassword, result, accessToken, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, email = _a.email, password = _a.password;
-                if (email === undefined || password === undefined) {
-                    return [2 /*return*/, (res.status(400).json({ message: 'must provide email and password' }))];
+                _a = req.body, email = _a.email, password = _a.password, firstName = _a.firstName, lastName = _a.lastName, city = _a.city, state = _a.state, dateOfBirth = _a.dateOfBirth, profileImageId = _a.profileImageId;
+                if (email === undefined
+                    || password === undefined
+                    || firstName === undefined
+                    || lastName === undefined) {
+                    return [2 /*return*/, (res.status(400).json({
+                            message: 'must provide email, password, firstName and lastName',
+                        }))];
                 }
                 hashedPassword = Bcrypt.hashSync(password, globalConstants_1.SALT_ROUNDS);
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, models_1.Users.insert({ item: { email: email, password: hashedPassword } })];
+                return [4 /*yield*/, models_1.Users.insert({
+                        item: {
+                            email: email,
+                            password: hashedPassword,
+                            firstName: firstName,
+                            lastName: lastName,
+                            city: city,
+                            state: state,
+                            dateOfBirth: dateOfBirth,
+                            profileImageId: profileImageId,
+                        },
+                    })];
             case 2:
                 result = (_b.sent())[0];
                 if (result) {
-                    token = utils_1.generateToken(result);
-                    return [2 /*return*/, res.status(201).json({ token: token })];
+                    accessToken = utils_1.generateToken(result);
+                    return [2 /*return*/, res.status(201).json({ accessToken: accessToken })];
                 }
                 return [2 /*return*/, res.status(500).json({ message: 'error registering user' })];
             case 3:
