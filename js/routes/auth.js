@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -43,42 +54,27 @@ var utils_1 = require("../utils");
 var models_1 = require("../data/models");
 exports.router = Express.Router();
 var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, email, password, firstName, lastName, city, state, dateOfBirth, profileImageId, hashedPassword, result, accessToken, err_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var credentials, hashedPassword, result, accessToken, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _a = req.body, email = _a.email, password = _a.password, firstName = _a.firstName, lastName = _a.lastName, city = _a.city, state = _a.state, dateOfBirth = _a.dateOfBirth, profileImageId = _a.profileImageId;
-                if (email === undefined
-                    || password === undefined) {
-                    return [2 /*return*/, (res.status(400).json({
-                            message: 'must provide email and password',
-                        }))];
-                }
-                hashedPassword = Bcrypt.hashSync(password, globalConstants_1.SALT_ROUNDS);
-                _b.label = 1;
+                credentials = req.credentials;
+                hashedPassword = Bcrypt.hashSync(credentials.password, globalConstants_1.SALT_ROUNDS);
+                _a.label = 1;
             case 1:
-                _b.trys.push([1, 3, , 4]);
+                _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, models_1.Users.insert({
-                        item: {
-                            email: email,
-                            password: hashedPassword,
-                            firstName: firstName,
-                            lastName: lastName,
-                            city: city,
-                            state: state,
-                            dateOfBirth: dateOfBirth,
-                            profileImageId: profileImageId,
-                        },
+                        item: __assign(__assign({}, credentials), { password: hashedPassword }),
                     })];
             case 2:
-                result = (_b.sent())[0];
+                result = (_a.sent())[0];
                 if (result) {
                     accessToken = utils_1.generateToken(result);
                     return [2 /*return*/, res.status(201).json({ accessToken: accessToken })];
                 }
                 return [2 /*return*/, res.status(500).json({ message: 'error registering user' })];
             case 3:
-                err_1 = _b.sent();
+                err_1 = _a.sent();
                 return [2 /*return*/, res.status(500).json({
                         error: err_1.message,
                         message: 'error registering user',
@@ -92,7 +88,7 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, email = _a.email, password = _a.password;
+                _a = req.credentials, email = _a.email, password = _a.password;
                 if (email === undefined || password === undefined) {
                     return [2 /*return*/, (res.status(400).json({ message: 'must provide email and password' }))];
                 }

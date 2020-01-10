@@ -11,6 +11,10 @@ export interface JWTRequest extends Express.Request {
   },
 }
 
+export interface ValidatedCredentialsRequest extends Express.Request {
+  credentials: User,
+}
+
 export interface UserCredentials {
   id?: number,
   username?: string,
@@ -198,3 +202,9 @@ export type AmenityType =
   | 'Hot Tub'
   | 'Air Conditioning'
   | 'Private Entrance';
+
+export type RoomType =
+ 'Entire Home/Apt'
+ | 'Private Room'
+ | 'Shared Room'
+ | 'Hotel Room'
