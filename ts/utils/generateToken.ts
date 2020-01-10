@@ -10,6 +10,7 @@ export const generateToken = ({ id, username }: GenerateTokenArg) => {
     subject: id,
     username,
   };
+  console.log(process.env.TOKEN_LIFETIME);
   const options: Jwt.SignOptions = {
     expiresIn: process.env.TOKEN_LIFETIME,
   };

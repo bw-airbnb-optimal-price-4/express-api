@@ -7,6 +7,7 @@ exports.generateToken = function (_a) {
         subject: id,
         username: username,
     };
+    console.log(process.env.TOKEN_LIFETIME);
     var options = {
         expiresIn: process.env.TOKEN_LIFETIME,
     };
