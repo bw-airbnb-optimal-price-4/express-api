@@ -1,4 +1,5 @@
 import * as Express from 'express';
+import * as Jwt from 'jsonwebtoken';
 
 import { Listing, ValidatedListingRequest } from '../types';
 import { filterOutUndefinedMembers } from '../utils';
@@ -10,10 +11,9 @@ export const validateListing = (
 ) => {
   const {
     id,
-    userId,
     propertyTypeId,
     neighborhoodId,
-    roomTypes,
+    roomType,
     accommodates,
     bedrooms,
     bathrooms,
@@ -28,13 +28,14 @@ export const validateListing = (
     latitude,
     longitude,
   }: Listing = req.body;
+  const { subject } = Jwt.decode(req.headers.token as string) as { subject: string };
 
   req.listing = filterOutUndefinedMembers({ obj: {
     id,
-    userId,
+    userId: parseInt(subject, 10),
     propertyTypeId,
     neighborhoodId,
-    roomTypes,
+    roomType,
     accommodates,
     bedrooms,
     bathrooms,
@@ -50,17 +51,18 @@ export const validateListing = (
     longitude,
   }}) as Listing;
 
-  return ((userId === undefined
+  return ((req.listing.userId === undefined
+    || Number.isNaN(req.listing.userId)
     || propertyTypeId === undefined
     || neighborhoodId === undefined
-    || roomTypes === undefined
+    || roomType === undefined
     || accommodates === undefined
     || bedrooms === undefined
     || bathrooms === undefined
     || beds === undefined
   )
     ? res.status(400).json({
-      message: 'mustp provide userId, PropertyTypeId, NeighborhoodId, roomTypes, accommodates, '
+      message: 'mustp provide userId, PropertyTypeId, NeighborhoodId, roomType, accommodates, '
         + 'bedrooms, bathrooms and beds',
     })
     : next()
