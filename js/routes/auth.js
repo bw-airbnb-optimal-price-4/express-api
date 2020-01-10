@@ -97,7 +97,7 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
                 return [4 /*yield*/, models_1.Users.getByEmail({ email: email })];
             case 2:
                 result = _b.sent();
-                if (!!result && Bcrypt.compareSync(password, result.password)) {
+                if (result && Bcrypt.compareSync(password, result.password)) {
                     token = utils_1.generateToken(result);
                     return [2 /*return*/, res.status(200).json({ token: token })];
                 }

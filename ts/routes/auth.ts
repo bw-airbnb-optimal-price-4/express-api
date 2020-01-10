@@ -42,7 +42,7 @@ const login = async (req: ValidatedCredentialsRequest, res: Express.Response) =>
 
   try {
     const result = await Users.getByEmail({ email }) as UserType;
-    if (!!result && Bcrypt.compareSync(password, result.password)) {
+    if (result && Bcrypt.compareSync(password, result.password)) {
       const token = generateToken(result);
       return res.status(200).json({ token });
     }

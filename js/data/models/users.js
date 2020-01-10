@@ -18,7 +18,7 @@ var getByEmail = function (_a) {
         ? {
             id: result.id,
             email: result.email,
-            hashedPassword: result.password,
+            password: result.password,
         }
         : undefined); }));
 };
