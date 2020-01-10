@@ -12,7 +12,6 @@ import {
 } from './routes';
 import {
   verifyLoggedIn,
-  validateCredentials,
 } from './middleware';
 
 const server = Express();
@@ -30,7 +29,7 @@ generalRestrictedRoute.use('/neighborhoods', neighborhoodsRouter);
 generalRestrictedRoute.use('/propertyTypes', propertyTypesRouter);
 generalRestrictedRoute.use('/users', usersRouter);
 
-server.use('/api/auth', validateCredentials, authRouter);
+server.use('/api/auth', authRouter);
 server.use('/api/restricted', generalRestrictedRoute);
 
 export default server;
