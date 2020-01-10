@@ -3,7 +3,7 @@ import { basicModelTemplate } from './basicModelTemplate';
 import { convertObjectCamelToSnake, convertObjectSnakeToCamel } from '../../utils';
 
 const model = basicModelTemplate<Listing>({
-  tableName: 'users',
+  tableName: 'listings',
   preprocessData: ((data) => convertObjectCamelToSnake({ obj: data })),
   processResult: ((result) => convertObjectSnakeToCamel({ obj: result }) as Listing),
 });
