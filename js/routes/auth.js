@@ -56,7 +56,7 @@ var middleware_1 = require("../middleware");
 exports.router = Express.Router();
 exports.router.use(middleware_1.validateCredentials);
 var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var credentials, hashedPassword, result, accessToken, err_1;
+    var credentials, hashedPassword, result, token, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -71,8 +71,8 @@ var register = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
             case 2:
                 result = (_a.sent())[0];
                 if (result) {
-                    accessToken = utils_1.generateToken(result);
-                    return [2 /*return*/, res.status(201).json({ accessToken: accessToken })];
+                    token = utils_1.generateToken(result);
+                    return [2 /*return*/, res.status(201).json({ token: token })];
                 }
                 return [2 /*return*/, res.status(500).json({ message: 'error registering user' })];
             case 3:

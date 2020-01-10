@@ -25,8 +25,8 @@ const register = async (req: ValidatedCredentialsRequest, res: Express.Response)
       },
     });
     if (result) {
-      const accessToken = generateToken(result);
-      return res.status(201).json({ accessToken });
+      const token = generateToken(result);
+      return res.status(201).json({ token });
     }
     return res.status(500).json({ message: 'error registering user' });
   } catch (err) {
