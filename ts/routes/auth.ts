@@ -1,7 +1,7 @@
 import * as Express from 'express';
 import * as Bcrypt from 'bcryptjs';
 
-import { User as UserType } from '../types';
+import { User as UserType, ValidatedCredentialsRequest } from '../types';
 import { SALT_ROUNDS } from '../globalConstants';
 import { generateToken } from '../utils';
 import { Users } from '../data/models';
@@ -9,39 +9,16 @@ import { Users } from '../data/models';
 
 export const router = Express.Router();
 
-const register = async (req: Express.Request, res: Express.Response) => {
-  const {
-    email,
-    password,
-    firstName,
-    lastName,
-    city,
-    state,
-    dateOfBirth,
-    profileImageId,
-  } = req.body;
+const register = async (req: ValidatedCredentialsRequest, res: Express.Response) => {
+  const { credentials } = req;
 
-  if (email === undefined
-    || password === undefined
-  ) {
-    return (res.status(400).json({
-      message: 'must provide email and password',
-    }));
-  }
-
-  const hashedPassword = Bcrypt.hashSync(password, SALT_ROUNDS);
+  const hashedPassword = Bcrypt.hashSync(credentials.password, SALT_ROUNDS);
 
   try {
     const [result] = await Users.insert({
       item: {
-        email,
+        ...credentials,
         password: hashedPassword,
-        firstName,
-        lastName,
-        city,
-        state,
-        dateOfBirth,
-        profileImageId,
       },
     });
     if (result) {
@@ -57,8 +34,8 @@ const register = async (req: Express.Request, res: Express.Response) => {
   }
 };
 
-const login = async (req: Express.Request, res: Express.Response) => {
-  const { email, password } = req.body;
+const login = async (req: ValidatedCredentialsRequest, res: Express.Response) => {
+  const { email, password } = req.credentials;
 
   if (email === undefined || password === undefined) {
     return (res.status(400).json({ message: 'must provide email and password' }));
