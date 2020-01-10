@@ -71,7 +71,7 @@ var insertListing = function (req, res) { return __awaiter(void 0, void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, models_1.Listings.insert({ item: req.body })];
+                return [4 /*yield*/, models_1.Listings.insert({ item: req.listing })];
             case 1:
                 result = (_a.sent())[0];
                 return [2 /*return*/, ((result)

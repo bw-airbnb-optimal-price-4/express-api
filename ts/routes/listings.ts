@@ -1,6 +1,6 @@
 import * as Express from 'express';
 
-import { Listing } from '../types';
+import { Listing, ValidatedListingRequest } from '../types';
 import { Listings } from '../data/models';
 import { validateListing } from '../middleware';
 
@@ -24,9 +24,9 @@ const getListing = async (req: Express.Request, res: Express.Response) => {
   }
 };
 
-const insertListing = async (req: Express.Request, res: Express.Response) => {
+const insertListing = async (req: ValidatedListingRequest, res: Express.Response) => {
   try {
-    const [result] = await Listings.insert({ item: req.body }); // this needs to be changed to the validated obj 
+    const [result] = await Listings.insert({ item: req.listing });
     return ((result)
       ? res.status(201).json(result)
       : res.status(500).json({ message: 'error adding listing' })
