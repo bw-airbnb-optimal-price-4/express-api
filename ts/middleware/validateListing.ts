@@ -62,7 +62,7 @@ export const validateListing = (
     || beds === undefined
   )
     ? res.status(400).json({
-      message: 'mustp provide userId, PropertyTypeId, NeighborhoodId, roomTypes, accommodates, '
+      message: 'mustp provide userId, PropertyTypeId, NeighborhoodId, roomType, accommodates, '
         + 'bedrooms, bathrooms and beds',
     })
     : next()

@@ -35,7 +35,7 @@ exports.validateListing = function (req, res, next) {
         || bathrooms === undefined
         || beds === undefined)
         ? res.status(400).json({
-            message: 'mustp provide userId, PropertyTypeId, NeighborhoodId, roomTypes, accommodates, '
+            message: 'mustp provide userId, PropertyTypeId, NeighborhoodId, roomType, accommodates, '
                 + 'bedrooms, bathrooms and beds',
         })
         : next());
