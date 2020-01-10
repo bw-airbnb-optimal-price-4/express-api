@@ -5,7 +5,7 @@ exports.filterOutUndefinedMembers = function (_a) {
     return Object
         .keys(obj)
         .reduce(function (acc, key) {
-        if (obj[key])
+        if (obj[key] !== undefined)
             acc[key] = obj[key];
         return acc;
     }, {});
