@@ -23,7 +23,7 @@ const getByEmail = ({ email }: GetByEmailArg) => (db(tableName)
       ? {
         id: result.id,
         email: result.email,
-        hashedPassword: result.password,
+        password: result.password, // make this hashedPassword instead of password when you adapt this 
       }
       : undefined
   ))
