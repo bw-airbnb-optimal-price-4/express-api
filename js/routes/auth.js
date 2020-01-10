@@ -49,11 +49,9 @@ var register = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
             case 0:
                 _a = req.body, email = _a.email, password = _a.password, firstName = _a.firstName, lastName = _a.lastName, city = _a.city, state = _a.state, dateOfBirth = _a.dateOfBirth, profileImageId = _a.profileImageId;
                 if (email === undefined
-                    || password === undefined
-                    || firstName === undefined
-                    || lastName === undefined) {
+                    || password === undefined) {
                     return [2 /*return*/, (res.status(400).json({
-                            message: 'must provide email, password, firstName and lastName',
+                            message: 'must provide email and password',
                         }))];
                 }
                 hashedPassword = Bcrypt.hashSync(password, globalConstants_1.SALT_ROUNDS);

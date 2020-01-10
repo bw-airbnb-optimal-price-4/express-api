@@ -10,6 +10,7 @@ import {
   propertyTypesRouter,
   usersRouter,
 } from './routes';
+import { verifyLoggedIn } from './middleware';
 
 const server = Express();
 
@@ -17,11 +18,16 @@ server.use(Helment());
 server.use(Express.json());
 server.use(Cors());
 
-server.use('/api/amenities', amenitiesRouter);
+const generalRestrictedRoute = Express.Router();
+
+generalRestrictedRoute.use(verifyLoggedIn);
+generalRestrictedRoute.use('/amenities', amenitiesRouter);
+generalRestrictedRoute.use('/listings', listingsRouter);
+generalRestrictedRoute.use('/neighborhoods', neighborhoodsRouter);
+generalRestrictedRoute.use('/propertyTypes', propertyTypesRouter);
+generalRestrictedRoute.use('/users', usersRouter);
+
 server.use('/api/auth', authRouter);
-server.use('/api/listings', listingsRouter);
-server.use('/api/neighborhoods', neighborhoodsRouter);
-server.use('/api/propertyTypes', propertyTypesRouter);
-server.use('/api/users', usersRouter);
+server.use('/api/restricted', generalRestrictedRoute);
 
 export default server;

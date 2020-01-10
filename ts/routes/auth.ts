@@ -23,11 +23,9 @@ const register = async (req: Express.Request, res: Express.Response) => {
 
   if (email === undefined
     || password === undefined
-    || firstName === undefined
-    || lastName === undefined
   ) {
     return (res.status(400).json({
-      message: 'must provide email, password, firstName and lastName',
+      message: 'must provide email and password',
     }));
   }
 
