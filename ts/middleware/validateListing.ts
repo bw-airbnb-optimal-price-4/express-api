@@ -14,7 +14,7 @@ export const validateListing = (
     propertyTypeId,
     neighborhoodId,
     roomTypes,
-    accommadates,
+    accommodates,
     bedrooms,
     bathrooms,
     beds,
@@ -35,7 +35,7 @@ export const validateListing = (
     propertyTypeId,
     neighborhoodId,
     roomTypes,
-    accommadates,
+    accommodates,
     bedrooms,
     bathrooms,
     beds,
@@ -54,13 +54,13 @@ export const validateListing = (
     || propertyTypeId === undefined
     || neighborhoodId === undefined
     || roomTypes === undefined
-    || accommadates === undefined
+    || accommodates === undefined
     || bedrooms === undefined
     || bathrooms === undefined
     || beds === undefined
   )
     ? res.status(400).json({
-      message: 'mustp provide userId, PropertyTypeId, NeighborhoodId, roomTypes, accommaadates, '
+      message: 'mustp provide userId, PropertyTypeId, NeighborhoodId, roomTypes, accommodates, '
         + 'bedrooms, bathrooms and beds',
     })
     : next()
