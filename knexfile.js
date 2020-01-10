@@ -9,6 +9,7 @@ module.exports = {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
     },
+    pool: { min: 0, max: 2 },
   },
 
   production: {
@@ -19,5 +20,6 @@ module.exports = {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
     },
+    pool: { min: 0, max: 2 },
   },
 };
