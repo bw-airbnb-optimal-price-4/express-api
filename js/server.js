@@ -16,6 +16,6 @@ generalRestrictedRoute.use('/listings', routes_1.listingsRouter);
 generalRestrictedRoute.use('/neighborhoods', routes_1.neighborhoodsRouter);
 generalRestrictedRoute.use('/propertyTypes', routes_1.propertyTypesRouter);
 generalRestrictedRoute.use('/users', routes_1.usersRouter);
-server.use('/api/auth', middleware_1.validateCredentials, routes_1.authRouter);
+server.use('/api/auth', routes_1.authRouter);
 server.use('/api/restricted', generalRestrictedRoute);
 exports.default = server;

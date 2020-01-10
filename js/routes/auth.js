@@ -52,7 +52,9 @@ var Bcrypt = require("bcryptjs");
 var globalConstants_1 = require("../globalConstants");
 var utils_1 = require("../utils");
 var models_1 = require("../data/models");
+var middleware_1 = require("../middleware");
 exports.router = Express.Router();
+exports.router.use(middleware_1.validateCredentials);
 var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var credentials, hashedPassword, result, accessToken, err_1;
     return __generator(this, function (_a) {
@@ -89,9 +91,6 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
         switch (_b.label) {
             case 0:
                 _a = req.credentials, email = _a.email, password = _a.password;
-                if (email === undefined || password === undefined) {
-                    return [2 /*return*/, (res.status(400).json({ message: 'must provide email and password' }))];
-                }
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);

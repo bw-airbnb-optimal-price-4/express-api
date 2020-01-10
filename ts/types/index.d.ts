@@ -15,6 +15,10 @@ export interface ValidatedCredentialsRequest extends Express.Request {
   credentials: User,
 }
 
+export interface ValidatedListingRequest extends Express.Request {
+  listing: Listing,
+}
+
 export interface UserCredentials {
   id?: number,
   username?: string,
@@ -45,6 +49,7 @@ export interface Listing {
   roomTypes: string,
   accommadates: number,
   bedrooms: number,
+  bathrooms: number,
   beds: number,
   listingUrl: string,
   title: string,

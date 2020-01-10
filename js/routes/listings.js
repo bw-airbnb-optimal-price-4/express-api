@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Express = require("express");
 var models_1 = require("../data/models");
+var middleware_1 = require("../middleware");
 exports.router = Express.Router();
 var getListing = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, result, err_1;
@@ -53,7 +54,7 @@ var getListing = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 result = (_a.sent())[0];
                 return [2 /*return*/, ((result)
                         ? res.status(200).json(result)
-                        : res.status(500).json({ message: "error getting listing by id " + id }))];
+                        : res.status(500).json({ message: "error getting listing by id " + id }))]; // join from intermediary tables 
             case 3:
                 err_1 = _a.sent();
                 return [2 /*return*/, res.status(500).json({
@@ -75,7 +76,7 @@ var insertListing = function (req, res) { return __awaiter(void 0, void 0, void 
                 result = (_a.sent())[0];
                 return [2 /*return*/, ((result)
                         ? res.status(201).json(result)
-                        : res.status(500).json({ message: 'error adding listing' }))];
+                        : res.status(500).json({ message: 'error adding listing' }))]; // modify intermediary tables 
             case 2:
                 err_2 = _a.sent();
                 return [2 /*return*/, res.status(500).json({
@@ -112,7 +113,7 @@ var removeListing = function (req, res) { return __awaiter(void 0, void 0, void 
     });
 }); };
 exports.router.get('/:id', getListing);
-exports.router.post('/', insertListing);
+exports.router.post('/', middleware_1.validateListing, insertListing);
 // router.put('/:id/', updateListing); // ask how this is supposed to behave 
 exports.router.delete('/:id', removeListing);
 exports.default = {};
