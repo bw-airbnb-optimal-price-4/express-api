@@ -47,7 +47,7 @@ export interface Listing {
   propertyTypeId: number,
   neighborhoodId: number,
   roomTypes: string,
-  accommadates: number,
+  accommodates: number,
   bedrooms: number,
   bathrooms: number,
   beds: number,
